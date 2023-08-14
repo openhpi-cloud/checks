@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
+	"net/netip"
 	"os"
 	"time"
 
@@ -20,7 +21,8 @@ func init() {
 
 func main() {
 	var opts struct {
-		Interface string `arg:"-i,--interface,required" help:"Interface to send DHCPv6 solicit"`
+		Interface string `arg:"-i,--interface" help:"Interface to send DHCPv6 solicit"`
+		Address   string `arg:"-a,--address" help:"DHCPv6 server address (default: ff02::1:2)"`
 		Debug     bool   `arg:"--debug"`
 	}
 
@@ -33,6 +35,30 @@ func main() {
 	var plugin = nagios.NewPlugin()
 	plugin.ExitStatusCode = nagios.StateUNKNOWNExitCode
 	defer plugin.ReturnCheckResults()
+
+	addr, _ := netip.AddrFromSlice(dhcpv6.AllDHCPRelayAgentsAndServers)
+
+	if opts.Address != "" {
+		addr, err := netip.ParseAddr(opts.Address)
+		if err != nil {
+			plugin.ServiceOutput = fmt.Sprintf("ERR - %s", err)
+			return
+		}
+
+		if !addr.Is6() {
+			plugin.ServiceOutput = "ERR - server address must be an IPv6 address"
+			return
+		}
+
+		if opts.Interface == "" {
+			opts.Interface = addr.Zone()
+		}
+	}
+
+	if opts.Interface == "" {
+		plugin.ServiceOutput = "ERR - server address with zone name or interface required"
+		return
+	}
 
 	iface, err := net.InterfaceByName(opts.Interface)
 	if err != nil {
@@ -54,10 +80,15 @@ func main() {
 		Zone: opts.Interface,
 	}
 
+	log.Debugf("Bind to %s", laddr.String())
+
 	raddr := net.UDPAddr{
-		IP:   dhcpv6.AllDHCPRelayAgentsAndServers,
+		IP:   addr.AsSlice(),
 		Port: dhcpv6.DefaultServerPort,
+		Zone: opts.Interface,
 	}
+
+	log.Debugf("Send SOLICIT to %s", raddr.String())
 
 	conn, err := net.ListenUDP("udp6", &laddr)
 	if err != nil {
@@ -115,7 +146,7 @@ func main() {
 		n, _, _, _, err := conn.ReadMsgUDP(buf, oobdata)
 		if err != nil {
 			if e, ok := err.(net.Error); ok && e.Timeout() {
-				plugin.ServiceOutput = fmt.Sprint("No advertise message received")
+				plugin.ServiceOutput = "No advertise message received"
 				plugin.ExitStatusCode = nagios.StateCRITICALExitCode
 				return
 			}
@@ -127,17 +158,16 @@ func main() {
 
 		adv, err = dhcpv6.FromBytes(buf[:n])
 		if err != nil {
-			// skip non-DHCP packets
-			//
-			// TODO: It also skips DHCP packets with any errors (for
-			// example if bootfile params are encoded incorrectly). We
-			// need to log such cases instead of silently skip them.
+			log.Debugf("Skip invalid or NON-DHCP paket: %s", err)
 			continue
 		}
+
+		log.Debugf("Received paket: %s", adv.Summary())
 
 		if recvMsg, ok := adv.(*dhcpv6.Message); ok {
 			// Check transaction ID if reply to send solicit message
 			if solicit.TransactionID != recvMsg.TransactionID {
+				log.Debugf("Received message with different TX_ID: %s != %s", solicit.TransactionID, recvMsg.TransactionID)
 				continue
 			}
 		}
@@ -147,11 +177,9 @@ func main() {
 		}
 	}
 
-	log.Debugf(adv.Summary())
-
 	opt := adv.GetOneOption(dhcpv6.OptionStatusCode)
 	if opt == nil {
-		plugin.ServiceOutput = fmt.Sprintf("ERR - No IANA status code in ADVERTISE response")
+		plugin.ServiceOutput = "ERR - No IANA status code in ADVERTISE response"
 		return
 	}
 
