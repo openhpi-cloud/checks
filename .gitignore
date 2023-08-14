@@ -4,20 +4,24 @@
 #
 # Recommended: Go.AllowList.gitignore
 
-# Ignore everything
-*
+# Ignore binaries
+*.dll
+*.dylib
+*.exe
+*.exe~
+*.so
+/check*
 
-# But not these files...
-!/.gitignore
+# Distribution packages and artifacts
+/dist
+/out
+/vendor
 
-!*.go
-!go.mod
-!go.sum
+# Test binary, built with `go test -c`
+*.test
 
-!CHANGELOG.md
-!LICENSE
-!Makefile
-!README.md
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
 
-# ...even if they are in subdirectories
-!*/
+# Go workspace file
+go.work
