@@ -4,7 +4,7 @@ export GO_ENABLED=0
 
 TARGETS = check_dhcpv6
 
-.PHONY: test build
+.PHONY: test build $(TARGETS)
 
 build: $(TARGETS)
 
