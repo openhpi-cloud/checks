@@ -33,7 +33,7 @@ func main() {
 	}
 
 	var plugin = nagios.NewPlugin()
-	plugin.ExitStatusCode = nagios.StateUNKNOWNExitCode
+	plugin.ExitStatusCode = nagios.StateCRITICALExitCode
 	defer plugin.ReturnCheckResults()
 
 	addr, _ := netip.AddrFromSlice(dhcpv6.AllDHCPRelayAgentsAndServers)
@@ -147,7 +147,6 @@ func main() {
 		if err != nil {
 			if e, ok := err.(net.Error); ok && e.Timeout() {
 				plugin.ServiceOutput = "No advertise message received"
-				plugin.ExitStatusCode = nagios.StateCRITICALExitCode
 				return
 			}
 
@@ -158,11 +157,11 @@ func main() {
 
 		adv, err = dhcpv6.FromBytes(buf[:n])
 		if err != nil {
-			log.Debugf("Skip invalid or NON-DHCP paket: %s", err)
+			log.Debugf("Skip invalid or NON-DHCP packet: %s", err)
 			continue
 		}
 
-		log.Debugf("Received paket: %s", adv.Summary())
+		log.Debugf("Received packet: %s", adv.Summary())
 
 		if recvMsg, ok := adv.(*dhcpv6.Message); ok {
 			// Check transaction ID if reply to send solicit message
@@ -179,7 +178,7 @@ func main() {
 
 	opt := adv.GetOneOption(dhcpv6.OptionStatusCode)
 	if opt == nil {
-		plugin.ServiceOutput = "ERR - No IANA status code in ADVERTISE response"
+		plugin.ServiceOutput = "ERR - No status code in response"
 		return
 	}
 
