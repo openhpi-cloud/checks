@@ -23,8 +23,8 @@ nfpms:
     formats:
       - deb
     contents:
-      - src: contrib/ohc-commands.conf
-        dst: /usr/share/icinga2/include/ohc-commands.conf
+      - src: contrib/check-commands.conf
+        dst: /usr/share/icinga2/include/plugins-contrib.d/ohc.conf
 
 archives:
   - format: tar.gz
