@@ -25,6 +25,8 @@ nfpms:
     contents:
       - src: contrib/check-commands.conf
         dst: /usr/share/icinga2/include/plugins-contrib.d/ohc.conf
+    scripts:
+      postinstall: contrib/pkg/postinstall.sh
 
 archives:
   - format: tar.gz
