@@ -22,10 +22,11 @@ D-Bus address to scan for VRRP instances. Defaults to `org.keepalived.Vrrp1`.
 
 **Examples**
 
-Check default local `keepalived` with two VRRP instances:
+Check default local `keepalived` with two VRRP instances on custom configured D-Bus address:
 
 ```console
-check_dhcpv6 --interface eno1
+$ check_keepalived --address org.keepalived.Vrrp2
+OK - Master: vrrp51,vrrp52 | 'backup'=0;;;; 'faulty'=0;;;; 'master'=2;;;; 'time'=2ms;;;; 'unknown'=0;;;;
 ```
 
 </dd>
