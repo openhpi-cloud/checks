@@ -6,8 +6,19 @@ before:
     - go generate ./...
 
 builds:
-  - main: ./cmd/check_dhcpv6
+  - id: check_dhcpv6
+    main: ./cmd/check_dhcpv6
     binary: check_dhcpv6
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+  - id: check_keepalived
+    main: ./cmd/check_keepalived
+    binary: check_keepalived
     env:
       - CGO_ENABLED=0
     goos:
