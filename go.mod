@@ -6,7 +6,7 @@ require (
 	github.com/alexflint/go-arg v1.4.3
 	github.com/atc0005/go-nagios v0.16.0
 	github.com/godbus/dbus/v5 v5.1.0
-	github.com/insomniacslk/dhcp v0.0.0-20231012130842-9b5d35ae8e55
+	github.com/insomniacslk/dhcp v0.0.0-20231016090811-6a2c8fbdcc1c
 	github.com/sirupsen/logrus v1.9.3
 )
 
