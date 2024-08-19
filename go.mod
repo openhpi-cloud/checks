@@ -1,6 +1,6 @@
 module github.com/openhpi-cloud/checks
 
-go 1.22
+go 1.23
 
 require (
 	github.com/alexflint/go-arg v1.5.1
