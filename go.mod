@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/alexflint/go-arg v1.5.1
-	github.com/atc0005/go-nagios v0.16.1
+	github.com/atc0005/go-nagios v0.16.2
 	github.com/godbus/dbus/v5 v5.1.0
 	github.com/insomniacslk/dhcp v0.0.0-20240829085014-a3a4c1f04475
 	github.com/sirupsen/logrus v1.9.3
