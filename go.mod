@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/alexflint/go-arg v1.5.1
-	github.com/atc0005/go-nagios v0.19.0
+	github.com/atc0005/go-nagios v0.20.0
 	github.com/godbus/dbus/v5 v5.1.0
 	github.com/insomniacslk/dhcp v0.0.0-20250417080101-5f8cf70e8c5f
 	github.com/sirupsen/logrus v1.9.3
