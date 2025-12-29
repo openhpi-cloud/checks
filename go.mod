@@ -3,7 +3,7 @@ module github.com/openhpi-cloud/checks
 go 1.25
 
 require (
-	github.com/alexflint/go-arg v1.6.0
+	github.com/alexflint/go-arg v1.6.1
 	github.com/atc0005/go-nagios v0.20.0
 	github.com/godbus/dbus/v5 v5.2.1
 	github.com/insomniacslk/dhcp v0.0.0-20251020182700-175e84fbb167
