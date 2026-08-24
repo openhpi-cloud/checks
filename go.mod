@@ -7,7 +7,7 @@ require (
 	github.com/atc0005/go-nagios v0.20.0
 	github.com/godbus/dbus/v5 v5.2.2
 	github.com/insomniacslk/dhcp v0.0.0-20260728151720-c308df0fdcef
-	github.com/sirupsen/logrus v1.10.0
+	github.com/sirupsen/logrus v1.10.1
 )
 
 require (
