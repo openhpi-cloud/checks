@@ -5,8 +5,8 @@ github.com/alexflint/go-scalar v1.2.0/go.mod h1:LoFvNMqS1CPrMVltza4LvnGKhaSpc3oy
 github.com/atc0005/go-nagios v0.20.0 h1:idVKV55FDo83lybEpwLqMCI3wkFhqySyVAgKQ0/PoVs=
 github.com/atc0005/go-nagios v0.20.0/go.mod h1:8EkdQjkEQOBXFR2P2CKLK7He/2XdRrJBwX4nSCNPFY8=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/godbus/dbus/v5 v5.2.3 h1:IQNSXULh6Nc4ZH8ETJ5Mdsj8loUFCWSBnsjmJkyjUB8=
-github.com/godbus/dbus/v5 v5.2.3/go.mod h1:3AAv2+hPq5rdnr5txxxRwiGjPXamgoIHgz9FPBfOp3c=
+github.com/godbus/dbus/v5 v5.2.4 h1:F2gUCy++NMIxGmo9J+z5le/+ZC8W1OgeR51P4i9ZB/U=
+github.com/godbus/dbus/v5 v5.2.4/go.mod h1:3AAv2+hPq5rdnr5txxxRwiGjPXamgoIHgz9FPBfOp3c=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
 github.com/insomniacslk/dhcp v0.0.0-20261014062924-c6bb46ad3f3a h1:07pMKu9gWaSFnDe817VcMl14qJfWCz1vm3uB+7YmyPE=

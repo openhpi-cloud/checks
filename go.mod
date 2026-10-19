@@ -5,7 +5,7 @@ go 1.27
 require (
 	github.com/alexflint/go-arg v1.6.1
 	github.com/atc0005/go-nagios v0.20.0
-	github.com/godbus/dbus/v5 v5.2.3
+	github.com/godbus/dbus/v5 v5.2.4
 	github.com/insomniacslk/dhcp v0.0.0-20261014062924-c6bb46ad3f3a
 	github.com/sirupsen/logrus v1.10.2
 )
